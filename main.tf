@@ -92,10 +92,14 @@ resource "aws_security_group" "ingress_ssh" {
 # Elastic IP for master node
 #------------------------------------------------------------------------------#
 
+#resource "aws_network_interface" "master" {
+#  subnet_id       = aws_subnet.public_a.id
+#}
+
 # EIP for master node because it must know its public IP during initialisation
 resource "aws_eip" "master" {
-  vpc  = true
   tags = local.tags
+  domain = "vpc"
 }
 
 resource "aws_eip_association" "master" {
